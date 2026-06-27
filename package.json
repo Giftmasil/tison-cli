@@ -4,7 +4,7 @@
   "description": "Scaffold curated AI-context files (CLAUDE.md, AGENTS.md, specs) into a project from hand-crafted templates.",
   "type": "module",
   "bin": {
-    "tison": "./dist/cli.js"
+    "tison": "dist/cli.js"
   },
   "exports": "./dist/index.js",
   "files": [
