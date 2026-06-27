@@ -1,0 +1,15 @@
+{
+  "category": "enterprise",
+  "description": "Full setup for a production / team codebase — gates, testing, architecture boundaries, sub-agents.",
+  "files": [
+    { "src": "AGENTS.md", "doc": "agents" },
+    { "src": "CLAUDE.md", "doc": "claude" },
+    { "src": "docs/testing.md", "doc": "testing" },
+    { "src": "docs/architecture.md", "doc": "architecture" },
+    { "src": "docs/design-system.md", "doc": "design-system" },
+    { "src": "docs/conventions.md", "doc": "conventions" },
+    { "src": "docs/adr/0001-record-architecture-decisions.md", "doc": "adr" },
+    { "src": ".claude/agents/code-reviewer.md", "doc": "reviewer" },
+    { "src": ".claude/agents/planner.md", "doc": "planner" }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "category": "mvp",
+  "description": "Lean setup for a fast-moving prototype / MVP.",
+  "files": [
+    { "src": "AGENTS.md", "doc": "agents" },
+    { "src": "CLAUDE.md", "doc": "claude" },
+    { "src": "docs/conventions.md", "doc": "conventions" }
+  ]
+}
