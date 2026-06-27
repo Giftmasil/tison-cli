@@ -39,12 +39,12 @@
   "author": "Gift Muuo Masila",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR_GITHUB_USERNAME/tison-cli.git"
+    "url": "git+https://github.com/Giftmasil/tison-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR_GITHUB_USERNAME/tison-cli/issues"
+    "url": "https://github.com/Giftmasil/tison-cli/issues"
   },
-  "homepage": "https://github.com/YOUR_GITHUB_USERNAME/tison-cli#readme",
+  "homepage": "https://github.com/Giftmasil/tison-cli#readme",
   "publishConfig": {
     "access": "public"
   }
