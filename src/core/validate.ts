@@ -21,7 +21,7 @@ const MAX_LINES = 150;
 
 /**
  * Conservative secret heuristics. We only ever report the RULE name and line
- * number — never the matched text — so running validate can't leak the secret
+ * number - never the matched text - so running validate can't leak the secret
  * into logs/CI output.
  */
 const SECRET_RULES: { rule: string; re: RegExp }[] = [

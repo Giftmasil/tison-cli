@@ -43,7 +43,7 @@ export function categoryDir(category: string): string {
 
 /**
  * Resolve a relative target path against the output dir and PROVE it stays
- * inside. path.join/normalize are NOT security boundaries on their own — we
+ * inside. path.join/normalize are NOT security boundaries on their own - we
  * verify containment explicitly with path.relative.
  */
 export function safeJoin(outDir: string, relPath: string): string {

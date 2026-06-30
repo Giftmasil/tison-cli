@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Smoke test the CLI
+        run: |
+          node dist/cli.js --version
+          node dist/cli.js list
+          node dist/cli.js run enterprise --output "$RUNNER_TEMP/ci-test"
+          test -f "$RUNNER_TEMP/ci-test/AGENTS.md"
+          test -f "$RUNNER_TEMP/ci-test/.claude/agents/code-reviewer.md"
+          node dist/cli.js validate "$RUNNER_TEMP/ci-test"
+      - name: Verify the package still ships templates + dist
+        run: npm pack --dry-run

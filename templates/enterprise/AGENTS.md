@@ -1,11 +1,11 @@
 # AGENTS.md
 
 Instructions for AI coding agents in this repository. This file is the source of
-truth; `CLAUDE.md` imports it. Keep it short — link out to `docs/` for detail.
+truth; `CLAUDE.md` imports it. Keep it short - link out to `docs/` for detail.
 
 ## Project
 
-[TODO(tison): one or two sentences — what this service is and the role it plays.]
+[TODO(tison): one or two sentences - what this service is and the role it plays.]
 
 Stack: [TODO(tison): languages, frameworks, versions, package manager]
 
