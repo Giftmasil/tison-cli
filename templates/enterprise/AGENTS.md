@@ -50,7 +50,9 @@ Stop and get explicit approval before:
 
 - Conventional Commits: `feat:`, `fix:`, `refactor:`, `chore:`, `docs:`, `test:`.
 - Branch names: `[TODO(tison): e.g. type/ticket-id/short-desc]`.
-- Keep PRs small and single-purpose. [TODO(tison): required reviewers / CI gates.]
+- Keep PRs small and single-purpose.
+- CI must pass: [TODO(tison): the checks CI runs on a pull request]
+- [TODO(tison:human): who must review, and any other merge requirement.]
 
 ## More detail
 

@@ -13,10 +13,10 @@ export function listCommand(): void {
     let docs: string[] = [];
     try {
       const m = readManifest(cat);
-      desc = m.description ? ` — ${m.description}` : "";
+      desc = m.description ? ` - ${m.description}` : "";
       docs = m.files.map((f) => f.doc);
     } catch {
-      desc = " — (invalid manifest)";
+      desc = " - (invalid manifest)";
     }
     console.log(`  ${cat}${desc}`);
     if (docs.length) console.log(`      docs: ${docs.join(", ")}`);

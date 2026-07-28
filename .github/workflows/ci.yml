@@ -23,6 +23,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Unit tests
+        run: npm test
       - name: Smoke test the CLI
         run: |
           node dist/cli.js --version
@@ -31,5 +33,13 @@ jobs:
           test -f "$RUNNER_TEMP/ci-test/AGENTS.md"
           test -f "$RUNNER_TEMP/ci-test/.claude/agents/code-reviewer.md"
           node dist/cli.js validate "$RUNNER_TEMP/ci-test"
-      - name: Verify the package still ships templates + dist
-        run: npm pack --dry-run
+      - name: The AI commands must not need a key to refuse politely
+        run: |
+          node dist/cli.js doctor --offline || true
+          node dist/cli.js fill "$RUNNER_TEMP/ci-test" --dry-run
+      - name: Verify the package still ships templates + dist, and no tests
+        run: |
+          npm pack --dry-run 2>&1 | tee /tmp/pack.txt
+          grep -q "templates/enterprise/AGENTS.md" /tmp/pack.txt
+          grep -q "dist/cli.js" /tmp/pack.txt
+          ! grep -qE "dist-test|\.test\.js" /tmp/pack.txt

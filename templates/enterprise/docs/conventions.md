@@ -5,16 +5,19 @@ If your tooling enforces it, don't restate it here.
 
 ## Naming
 
-- [TODO(tison): files/dirs casing, components, variables, constants.]
+- Files and directories: `[TODO(tison): casing for files and directories, e.g. kebab-case]`
+- Components: `[TODO(tison): casing for components, e.g. PascalCase]`
+- Variables and constants: `[TODO(tison): casing for variables and constants]`
 
 ## Structure
 
-- [TODO(tison): where code goes; feature-folder vs layer-folder; co-location rules.]
+- Feature code lives in: `[TODO(tison): the directory features live under, from the file tree]`
+- [TODO(tison:human): co-location rules — what sits next to what, and what must not.]
 
 ## Errors & logging
 
-- [TODO(tison): how errors are thrown/handled; never swallow silently.]
-- [TODO(tison): logging levels, and what must never be logged (no PII/secrets).]
+- [TODO(tison:human): how errors are thrown and handled here; never swallow silently.]
+- [TODO(tison:human): logging levels, and what must never be logged (no PII/secrets).]
 
 ## Commits
 
@@ -23,7 +26,7 @@ If your tooling enforces it, don't restate it here.
 
 ## Branches & PRs
 
-- Branch: [TODO(tison): e.g. type/ticket-id/short-desc.]
+- Branch: `[TODO(tison): branch naming pattern, e.g. type/ticket-id/short-desc]`
 - One concern per PR. The description says what changed and why.
 
 ---

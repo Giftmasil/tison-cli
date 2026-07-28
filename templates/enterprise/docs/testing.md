@@ -5,10 +5,10 @@ resembles how the software is actually used, the more confidence it gives.
 
 ## Commands
 
-- All tests: `[TODO(tison): e.g. pnpm test]`
-- Single test: `[TODO(tison): e.g. pnpm test -- <pattern>]`
-- Unit only (fast, pre-commit): `[TODO(tison): ...]`
-- Coverage: `[TODO(tison): ...]`
+- All tests: `[TODO(tison): the command that runs the whole suite]`
+- Single test: `[TODO(tison): the command that runs one test file or pattern]`
+- Unit only (fast, pre-commit): `[TODO(tison): the command for unit tests only, or leave empty]`
+- Coverage: `[TODO(tison): the command that produces a coverage report, or leave empty]`
 
 Prefer running a single test over the whole suite while iterating.
 
@@ -30,14 +30,15 @@ Reach for the smallest test that can catch the failure.
 
 ## Fixtures & data
 
-- [TODO(tison): where test factories/fixtures live and the pattern to follow.]
+- Test factories and fixtures live in: `[TODO(tison): the directory holding test fixtures or factories]`
+- [TODO(tison:human): the pattern to follow when adding one.]
 
 ## CI gates
 
-- Must pass before a PR can merge: [TODO(tison): e.g. lint, type-check, unit + integration.]
+- Must pass before a PR can merge: [TODO(tison): the checks CI runs on a pull request]
 
 ## Flaky tests
 
 A flaky test is worse than no test — it trains the team to ignore red. When a
 test flakes: quarantine it, open an issue, and fix or delete it within
-[TODO(tison): e.g. one week]. Don't let it linger.
+[TODO(tison:human): your deadline, e.g. one week]. Don't let it linger.

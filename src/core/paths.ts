@@ -6,13 +6,18 @@ import { existsSync, statSync, readdirSync } from "node:fs";
  *
  * Resolved from THIS file's location (import.meta.dirname), never from
  * process.cwd(). After a global install the templates live next to the
- * compiled code inside node_modules — cwd is the user's project, which is
+ * compiled code inside node_modules, cwd is the user's project, which is
  * a completely different place. Getting this wrong is the classic
  * "works locally, ships empty" CLI bug.
  *
  * Compiled file lives at dist/core/paths.js, so templates/ is two levels up.
  */
-export const TEMPLATES_ROOT = resolve(import.meta.dirname, "..", "..", "templates");
+export const TEMPLATES_ROOT = resolve(
+  import.meta.dirname,
+  "..",
+  "..",
+  "templates",
+);
 
 /** Only allow simple, single-segment names. Blocks path traversal at the source. */
 const SAFE_NAME = /^[a-zA-Z0-9_-]+$/;
@@ -43,7 +48,7 @@ export function categoryDir(category: string): string {
 
 /**
  * Resolve a relative target path against the output dir and PROVE it stays
- * inside. path.join/normalize are NOT security boundaries on their own - we
+ * inside. path.join/normalize are NOT security boundaries on their own, we
  * verify containment explicitly with path.relative.
  */
 export function safeJoin(outDir: string, relPath: string): string {

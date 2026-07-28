@@ -3,30 +3,41 @@
 <!-- Keep this file to boundaries, hard rules, and workflows. Do NOT add a prose
      overview of the system: agents read structure from the code, and overviews
      here tend to add cost and exploration without improving results. Put the
-     "why" in ADRs. -->
+     "why" in ADRs.
+
+     Most slots below are marked `tison:human`. They are decisions and multi-line
+     answers, so `tison fill` skips them rather than charging you to be told
+     nothing. Write them yourself — they are the highest-value lines in the file. -->
 
 ## Boundaries
 
 Rules the code must follow that you can't infer from a single file:
 
-- [TODO(tison): e.g. the route/web layer must never import the data layer directly — go through services.]
-- [TODO(tison): e.g. `core/` must not import from `features/`.]
-- [TODO(tison): allowed data-flow directions / forbidden imports.]
+- [TODO(tison:human): e.g. the route/web layer must never import the data layer directly — go through services.]
+- [TODO(tison:human): e.g. `core/` must not import from `features/`.]
+- [TODO(tison:human): any other forbidden import direction.]
 
 ## Module map
 
-- [TODO(tison): top-level modules, one line each, and who owns what. Keep it short.]
+<!-- One line per top-level module. Add as many lines as you have modules. -->
+
+- [TODO(tison:human): module name — what it owns, in one line.]
 
 ## Integration points
 
-- [TODO(tison): external systems, where each is configured, which module owns it.]
+<!-- One line per external system: what it is, where it's configured, who owns it. -->
+
+- [TODO(tison:human): external system — where it's configured, which module owns it.]
 
 ## Common workflows
 
-How to make cross-cutting changes correctly — this is where agents miss wiring:
+How to make cross-cutting changes correctly — this is where agents miss wiring,
+and the one kind of architectural content that measurably helps.
 
-- Add a [TODO(tison): e.g. new API endpoint]: 1) … 2) … 3) …
-- [TODO(tison): another recurring multi-file task and its exact steps.]
+- Add a `[TODO(tison): the most common recurring change, e.g. a new API endpoint]`:
+  1. [TODO(tison:human): first step.]
+  2. [TODO(tison:human): second step.]
+  3. [TODO(tison:human): third step.]
 
 ## Decisions
 

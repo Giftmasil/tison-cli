@@ -12,7 +12,9 @@ export function validateCommand(flags: ValidateFlags): number {
   console.log(`\ntison validate  ->  ${flags.dir}\n`);
 
   if (filesScanned === 0) {
-    console.log("No AI-context files found (looked for AGENTS.md, CLAUDE.md, docs/, .claude/).");
+    console.log(
+      "No AI-context files found (looked for AGENTS.md, CLAUDE.md, docs/, .claude/).",
+    );
     return 0;
   }
 
@@ -40,9 +42,12 @@ export function validateCommand(flags: ValidateFlags): number {
 
   const errors = findings.filter((f) => f.severity === "error").length;
   const warnings = findings.filter((f) => f.severity === "warning").length;
-  console.log(`Scanned ${filesScanned} file(s): ${errors} error(s), ${warnings} warning(s).`);
+  console.log(
+    `Scanned ${filesScanned} file(s): ${errors} error(s), ${warnings} warning(s).`,
+  );
 
   const failed = errors > 0 || (flags.strict && warnings > 0);
-  if (failed && errors === 0) console.log("(failing because --strict treats warnings as errors)");
+  if (failed && errors === 0)
+    console.log("(failing because --strict treats warnings as errors)");
   return failed ? 1 : 0;
 }
