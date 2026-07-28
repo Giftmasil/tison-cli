@@ -23,13 +23,40 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Unit tests
+        run: npm test
       - name: Smoke test the CLI
         run: |
+          # A scaffolded folder with no project around it is not a realistic
+          # target: `fill` rightly refuses it. Give the fixture a manifest so
+          # the smoke test exercises discovery instead of the empty-dir guard.
+          mkdir -p "$RUNNER_TEMP/ci-test"
+          printf '{"name":"ci-fixture","scripts":{"build":"tsc","test":"node --test"}}\n' \
+            > "$RUNNER_TEMP/ci-test/package.json"
+          printf '{}\n' > "$RUNNER_TEMP/ci-test/package-lock.json"
+
           node dist/cli.js --version
           node dist/cli.js list
-          node dist/cli.js run enterprise --output "$RUNNER_TEMP/ci-test"
+          node dist/cli.js run enterprise --output "$RUNNER_TEMP/ci-test" --yes
           test -f "$RUNNER_TEMP/ci-test/AGENTS.md"
           test -f "$RUNNER_TEMP/ci-test/.claude/agents/code-reviewer.md"
           node dist/cli.js validate "$RUNNER_TEMP/ci-test"
-      - name: Verify the package still ships templates + dist
-        run: npm pack --dry-run
+
+      - name: The AI commands refuse politely without a key, and never call out
+        run: |
+          # doctor exits 1 with no key, which is the behaviour under test.
+          node dist/cli.js doctor --offline && exit 1 || true
+
+          # A dry run must find the fixture's manifest and make no network call.
+          node dist/cli.js fill "$RUNNER_TEMP/ci-test" --dry-run | tee /tmp/dry.txt
+          grep -q "package.json" /tmp/dry.txt
+          grep -q "No call made" /tmp/dry.txt
+
+          # And filling without a key must fail cleanly rather than crash.
+          node dist/cli.js fill "$RUNNER_TEMP/ci-test" && exit 1 || true
+      - name: Verify the package still ships templates + dist, and no tests
+        run: |
+          npm pack --dry-run 2>&1 | tee /tmp/pack.txt
+          grep -q "templates/enterprise/AGENTS.md" /tmp/pack.txt
+          grep -q "dist/cli.js" /tmp/pack.txt
+          ! grep -qE "dist-test|\.test\.js" /tmp/pack.txt

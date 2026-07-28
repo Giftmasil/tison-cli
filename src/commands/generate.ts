@@ -21,6 +21,8 @@ export function generateCommand(doc: string, flags: GenerateFlags): void {
     force: flags.force,
     dryRun: flags.dryRun,
   });
-  console.log(`\ntison generate ${doc}  (from ${flags.category})  ->  ${flags.output}\n`);
+  console.log(
+    `\ntison generate ${doc}  (from ${flags.category})  ->  ${flags.output}\n`,
+  );
   report(results, flags.dryRun);
 }

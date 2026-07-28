@@ -40,7 +40,9 @@ export function readManifest(category: string): TemplateManifest {
   if (!existsSync(manifestPath)) {
     throw new Error(`Category "${category}" has no template.json manifest.`);
   }
-  const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as TemplateManifest;
+  const manifest = JSON.parse(
+    readFileSync(manifestPath, "utf8"),
+  ) as TemplateManifest;
   if (!Array.isArray(manifest.files) || manifest.files.length === 0) {
     throw new Error(`Category "${category}" manifest declares no files.`);
   }
@@ -64,7 +66,7 @@ export function applyDocs(opts: ApplyOptions): AppliedFile[] {
     const missing = opts.docs.filter((d) => !found.has(d));
     if (missing.length > 0) {
       throw new Error(
-        `No such doc(s) in category "${opts.category}": ${missing.join(", ")}`
+        `No such doc(s) in category "${opts.category}": ${missing.join(", ")}`,
       );
     }
   }

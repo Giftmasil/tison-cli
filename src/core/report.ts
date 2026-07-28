@@ -14,7 +14,9 @@ export function report(results: AppliedFile[], dryRun: boolean): void {
   }
 
   for (const r of results) {
-    console.log(`  ${MARK[r.status]} ${r.dest}${r.status === "skipped" ? "  (exists, use --force)" : ""}`);
+    console.log(
+      `  ${MARK[r.status]} ${r.dest}${r.status === "skipped" ? "  (exists, use --force)" : ""}`,
+    );
   }
 
   const created = results.filter((r) => r.status === "created").length;

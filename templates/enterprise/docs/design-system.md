@@ -4,14 +4,14 @@ UI guidance for agents. Reuse what exists before building anything new.
 
 ## Components
 
-- Library + version: [TODO(tison): e.g. shadcn/ui, MUI, internal kit.]
-- Shared components live in: [TODO(tison): path.]
+- Library + version: `[TODO(tison): the component library in use, with version]`
+- Shared components live in: `[TODO(tison): the path shared components live under]`
 - Check there before creating a new component.
 
 ## Tokens
 
 - Use design tokens for colour, spacing, and type. Never hardcode values.
-- Defined in: [TODO(tison): path.]
+- Defined in: `[TODO(tison): the path design tokens are defined in]`
 - Use semantic colour pairs (background + foreground) so contrast holds by construction.
 
 ## Accessibility (WCAG 2.2 AA)
@@ -23,8 +23,11 @@ UI guidance for agents. Reuse what exists before building anything new.
 
 ## Do / Don't
 
-- Do: [TODO(tison): one correct usage example for a common pattern.]
-- Don't: [TODO(tison): the matching wrong way.]
+<!-- A short code example beats a sentence here. Both slots want real snippets,
+     so they're yours to write. -->
+
+- Do: [TODO(tison:human): one correct usage example for a common pattern.]
+- Don't: [TODO(tison:human): the matching wrong way.]
 
 ---
 
