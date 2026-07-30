@@ -3,22 +3,61 @@ name: Publish to npm
 on:
   release:
     types: [published]
+  # Lets you test the pipeline without cutting a release. Defaults to a dry run,
+  # so triggering it by accident publishes nothing.
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — check OIDC and pack, but do not publish"
+        type: boolean
+        default: true
 
-permissions:
-  contents: read
-  id-token: write   # lets npm verify this build via OIDC (trusted publishing + provenance)
+# Nothing by default; the job asks for exactly what it needs.
+permissions: {}
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # required for trusted publishing and provenance
+
     steps:
+      - name: Check OIDC is actually available
+        run: |
+          echo "Event: ${{ github.event_name }}   Ref: ${{ github.ref }}"
+          if [ -z "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ]; then
+            echo "::error::No OIDC token endpoint. 'id-token: write' was requested but not granted."
+            echo ""
+            echo "The workflow file is fine — the repository is capping it."
+            echo "Fix: Settings -> Actions -> General -> Workflow permissions"
+            echo "     -> select 'Read and write permissions' -> press Save."
+            echo ""
+            echo "Then run this workflow again. Re-running an old run is not enough;"
+            echo "permissions are resolved when a run starts."
+            exit 1
+          fi
+          echo "OIDC token endpoint present. Trusted publishing can authenticate."
+
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
+
       - run: npm ci
       - run: npm run build
-      # No NPM_TOKEN needed: configure this repo as a Trusted Publisher on npm
+      - run: npm test
+
+      - name: Pack only (dry run)
+        if: inputs.dry_run
+        run: |
+          npm publish --provenance --access public --dry-run
+          echo "Dry run finished. Nothing was published."
+
+      # No NPM_TOKEN: this repo is configured as a Trusted Publisher on npm
       # (npmjs.com -> package settings -> Trusted Publishing). OIDC handles auth.
-      - run: npm publish --provenance --access public
+      - name: Publish
+        if: ${{ !inputs.dry_run }}
+        run: npm publish --provenance --access public
