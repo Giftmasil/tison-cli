@@ -8,6 +8,10 @@ fill in the project-specific details by reading your repo.
 npx tison-cli run enterprise
 ```
 
+**[Full documentation →](https://github.com/Giftmasil/tison-cli/blob/main/DOCS.md)**
+Every command, every flag, what it reads, what it refuses to write, and what to
+do when it goes wrong.
+
 ## Why
 
 AI coding agents read a Markdown context file at the start of every session, and
@@ -54,7 +58,7 @@ notice, say so, and ask where the context files should go.
 imports it, and a minimal conventions doc.
 
 **`enterprise`** — the full production set: a command-first `AGENTS.md` with
-explicit _Always / Ask first / Never_ gates, plus `docs/testing.md`,
+explicit *Always / Ask first / Never* gates, plus `docs/testing.md`,
 `docs/architecture.md`, `docs/design-system.md`, `docs/conventions.md`, an ADR
 seed, and read-only `code-reviewer` and `planner` sub-agents under
 `.claude/agents/`.
@@ -132,7 +136,7 @@ tison fill                        # answer the blanks it created
 `draft` produces a **skeleton**: section headings and labelled blanks, nothing
 else. It writes no rules, no steps and no prose, because those are the parts a
 model can't know and shouldn't guess. Overview sections are stripped, and a
-blank asking for the _value_ of a secret is refused — a blank asking what the
+blank asking for the *value* of a secret is refused — a blank asking what the
 environment variable is called is fine.
 
 Treat the output as a starting point you edit, not a finished document. If one
@@ -148,11 +152,11 @@ cp .env.example .env    # then paste your key in
 tison doctor            # verify it end to end, for a fraction of a cent
 ```
 
-| Variable              | Default                        | Purpose                                   |
-| --------------------- | ------------------------------ | ----------------------------------------- |
-| `OPENROUTER_API_KEY`  | —                              | required by `fill` and `draft`            |
-| `TISON_MODEL`         | `deepseek/deepseek-v4-flash`   | any model supporting strict `json_schema` |
-| `OPENROUTER_BASE_URL` | `https://openrouter.ai/api/v1` | for an OpenAI-compatible proxy            |
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `OPENROUTER_API_KEY` | — | required by `fill` and `draft` |
+| `TISON_MODEL` | `deepseek/deepseek-v4-flash` | any model supporting strict `json_schema` |
+| `OPENROUTER_BASE_URL` | `https://openrouter.ai/api/v1` | for an OpenAI-compatible proxy |
 
 Real environment variables beat `.env`, and `.env` is read from both the project
 you're filling and the directory you ran from. Filling a whole project costs
@@ -160,15 +164,15 @@ about a cent. Set a per-key credit limit on OpenRouter if you want a hard ceilin
 
 ## Commands
 
-| Command                 | What it does                                           |
-| ----------------------- | ------------------------------------------------------ |
-| `tison run <category>`  | Scaffold every file in a category                      |
-| `tison generate <doc>`  | Add a single doc (`-c` picks the category)             |
-| `tison list`            | List categories and their docs                         |
+| Command | What it does |
+| --- | --- |
+| `tison run <category>` | Scaffold every file in a category |
+| `tison generate <doc>` | Add a single doc (`-c` picks the category) |
+| `tison list` | List categories and their docs |
 | `tison validate [path]` | Flag unfilled markers, over-long files, likely secrets |
-| `tison fill [path]`     | Fill blanks by reading your project                    |
-| `tison draft <topic>`   | Lay out a new doc type as headings and blanks          |
-| `tison doctor`          | Check the AI setup end to end                          |
+| `tison fill [path]` | Fill blanks by reading your project |
+| `tison draft <topic>` | Lay out a new doc type as headings and blanks |
+| `tison doctor` | Check the AI setup end to end |
 
 Shared flags: `--output <dir>`, `--force`, `--dry-run`. `validate` adds
 `--strict` (warnings fail too, for CI). `fill` adds `--verbose` and `--file`.
@@ -203,6 +207,15 @@ npm run typecheck   # whole project, tests included
 ```
 
 Tests need Node 22.18 or newer. Published packages don't include them.
+
+## Full documentation
+
+This README covers the common path. For everything else — the complete command
+and flag reference, the exact list of files `fill` reads and the ones it never
+touches, how it decides between filling, abstaining and refusing a value, writing
+your own templates and markers, CI usage, the programmatic API, and a
+troubleshooting entry for every error message — see
+**[DOCS.md](https://github.com/Giftmasil/tison-cli/blob/main/DOCS.md)**.
 
 ## Roadmap
 
