@@ -46,6 +46,26 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org
 
+      # Node 22 ships npm 10, which has no OIDC support at all — it falls
+      # through to token auth, finds setup-node's placeholder NODE_AUTH_TOKEN,
+      # and the registry answers 404 for an unauthenticated write. Trusted
+      # publishing needs npm 11.5.1 or later.
+      - name: Update npm to a version that understands trusted publishing
+        run: |
+          npm install -g npm@latest
+          npm --version
+          node -e '
+            const v = require("child_process").execSync("npm --version").toString().trim();
+            const [maj, min, pat] = v.split(".").map(Number);
+            const ok = maj > 11 || (maj === 11 && (min > 5 || (min === 5 && pat >= 1)));
+            if (!ok) {
+              console.error("::error::npm " + v + " cannot use trusted publishing. Needs 11.5.1 or later.");
+              process.exit(1);
+            }
+            console.log("npm " + v + " supports trusted publishing.");
+          '
+
+
       - run: npm ci
       - run: npm run build
       - run: npm test
@@ -53,11 +73,12 @@ jobs:
       - name: Pack only (dry run)
         if: inputs.dry_run
         run: |
-          npm publish --provenance --access public --dry-run
+          npm publish --access public --dry-run
           echo "Dry run finished. Nothing was published."
 
       # No NPM_TOKEN: this repo is configured as a Trusted Publisher on npm
       # (npmjs.com -> package settings -> Trusted Publishing). OIDC handles auth.
       - name: Publish
         if: ${{ !inputs.dry_run }}
-        run: npm publish --provenance --access public
+        # No --provenance flag: trusted publishing attaches provenance by default.
+        run: npm publish --access public
