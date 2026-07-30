@@ -1,6 +1,7 @@
 {
   "name": "tison-cli",
   "version": "0.2.1",
+  "description": "Scaffold curated AI-context files (AGENTS.md, CLAUDE.md, specs) into a project from hand-crafted templates, then fill in the project-specific details by reading your repo.",
   "type": "module",
   "bin": {
     "tison": "dist/cli.js"
@@ -21,6 +22,16 @@
     "test": "tsc -p tsconfig.spec.json && node --test \"dist-test/**/*.test.js\"",
     "typecheck": "tsc"
   },
+  "keywords": [
+    "cli",
+    "claude",
+    "agents.md",
+    "claude.md",
+    "scaffold",
+    "ai",
+    "templates",
+    "coding-agent"
+  ],
   "license": "MIT",
   "dependencies": {
     "commander": "^15.0.0"
@@ -28,5 +39,17 @@
   "devDependencies": {
     "typescript": "^5.7.0",
     "@types/node": "^22.10.0"
+  },
+  "author": "Gift Muuo Masila",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Giftmasil/tison-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Giftmasil/tison-cli/issues"
+  },
+  "homepage": "https://github.com/Giftmasil/tison-cli#readme",
+  "publishConfig": {
+    "access": "public"
   }
 }
